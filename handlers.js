@@ -3,8 +3,24 @@
 let salesforce = require("./salesforce");
 
 exports.SearchHouses = (slots, session, response) => {
-    session.attributes.stage = "ask_city";
-    response.ask("OK, in what city?");
+//    session.attributes.stage = "ask_city";
+//    response.ask("OK, in what city?");
+        salesforce.findProperties()
+            .then(properties => {
+                if (properties && properties.length>0) {
+                    let text = `OK, your next refill is `;
+                    properties.forEach(property => {
+                        text += `${property.get("refill_date__c")}. <break time="0.5s" /> `;
+                    });
+                    response.say(text);
+                } else {
+                    response.say(`Sorry, I didn't find any that.`);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                response.say("Oops. Something went wrong");
+            });
 };
 
 exports.AnswerCity = (slots, session, response) => {
