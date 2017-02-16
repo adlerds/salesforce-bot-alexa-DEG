@@ -28,7 +28,7 @@ let login = () => {
 
 let findProperties = (params) => {
     let where = "";
-    if (params) {
+/*    if (params) {
         let parts = [];
         if (params.id) parts.push(`id='${params.id}'`);
         if (params.city) parts.push(`city__c='${params.city}'`);
@@ -38,20 +38,9 @@ let findProperties = (params) => {
         if (parts.length>0) {
             where = "WHERE " + parts.join(' AND ');
         }
-    }
+    }*/
     return new Promise((resolve, reject) => {
-        let q = `SELECT id,
-                    title__c,
-                    address__c,
-                    city__c,
-                    state__c,
-                    price__c,
-                    beds__c,
-                    baths__c,
-                    picture__c
-                FROM property__c
-                ${where}
-                LIMIT 5`;
+        let q = `SELECT Id, refill_date__c FROM APS_Program_Affiliation__c WHERE APS_Account__c = '0011100001KyZIHAA3'`;
         org.query({query: q}, (err, resp) => {
             if (err) {
                 reject(err);
