@@ -9,8 +9,8 @@ exports.SearchHouses = (slots, session, response) => {
             .then(properties => {
                 if (properties && properties.length>0) {
                     let text = `OK, your next refill is `;
-                    properties.forEach(property => {
-                        text += `${property.get("refill_date__c")}. <break time="0.5s" /> `;
+                    //properties.forEach(property => {                                            --remove to test DEG app
+                    //    text += `${property.get("refill_date__c")}. <break time="0.5s" /> `;    ---remove to test DEG app
                     });
                     response.say(text);
                 } else {
